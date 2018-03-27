@@ -2,7 +2,6 @@ package config
 
 import (
 	"flag"
-	"os"
 )
 
 var (
@@ -10,5 +9,5 @@ var (
 )
 
 func init() {
-	flag.StringVar(&ServicePort, "ServicePort", os.Getenv("SERVICE_PORT"), "Set the port for the service to start on")
+	flag.StringVar(&ServicePort, "ServicePort", "8100", "Set the port for the service to start on")
 }

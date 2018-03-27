@@ -5,9 +5,9 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/michaeljs1990/monastery/src/handler"
 
-	_ "github.com/michaeljs1990/monastery/src/config"
+	"github.com/michaeljs1990/monastery/src/config"
+	"github.com/michaeljs1990/monastery/src/handler"
 )
 
 func main() {
@@ -20,5 +20,5 @@ func main() {
 	relic.HandleFunc("/upload/{bucket}/{name}", handler.DefaultUpload)
 	relic.HandleFunc("/download/{bucket}/{name}", handler.DefaultDownload)
 
-	http.ListenAndServe(":8080", relic)
+	http.ListenAndServe(":"+config.ServicePort, relic)
 }
