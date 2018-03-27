@@ -27,5 +27,5 @@ Outline of high level design goals for this project as well as API outline.
 This is a basic high level API that I will flesh out more as I add support for
 the repository types above which will likely require special APIs.
 
- * POST /relic/upload/${name}
- * GET /relic/${name}
+ * POST /relic/set/${bucket}/${name}
+ * GET /relic/put/${bucket}/${name}
