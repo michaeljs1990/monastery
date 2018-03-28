@@ -2,11 +2,10 @@ package handler
 
 import (
 	"fmt"
-	"io"
 	"net/http"
-	"os"
 
 	"github.com/gorilla/mux"
+	"github.com/michaeljs1990/monastery/src/storage"
 )
 
 // DefaultUpload is the general purpose file upload function that will feature lots
@@ -24,18 +23,13 @@ func DefaultUpload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	out, err := os.Create("/tmp/file")
-	defer out.Close()
-
-	if err != nil {
-		fmt.Fprintf(w, "Failed to open the file for writing")
-		return
+	s3uploader := &storage.S3{}
+	s3uploader.LoadConfig()
+	abf := storage.AbstractFile{
+		Name:    vars["name"],
+		Handler: file,
 	}
-
-	_, err = io.Copy(out, file)
-	if err != nil {
-		fmt.Fprintln(w, err)
-	}
+	s3uploader.WriteFile(abf)
 
 	// the header contains useful info, like the original file name
 	w.WriteHeader(http.StatusOK)
