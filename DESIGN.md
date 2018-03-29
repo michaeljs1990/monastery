@@ -5,11 +5,11 @@ Outline of high level design goals for this project as well as API outline.
 
 ## Goals High Level
 
- * Http interface that is abstract of backend storage solution
+ * Http interface that is abstract of backend storage solution (In Progress)
  * Support for the following storage solutions
    * Ceph
    * HDFS
-   * S3
+   * S3 (In Progress)
    * In Memory
    * Posix
  * The frontend will scale independently of the underlying storage solution
@@ -21,11 +21,3 @@ Outline of high level design goals for this project as well as API outline.
    * Docker
  * Token and LDAP based auth
  * Optional ability to encrypt data before saving to backing file store
-
-## High Level API
-
-This is a basic high level API that I will flesh out more as I add support for
-the repository types above which will likely require special APIs.
-
- * POST /relic/set/${bucket}/${name}
- * GET /relic/put/${bucket}/${name}

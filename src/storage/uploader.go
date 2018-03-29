@@ -6,8 +6,10 @@ import "github.com/michaeljs1990/monastery/src/config"
 func Upload(a AbstractFile) error {
 
 	if config.S3Enabled {
-		return triggerUploader(a, &S3{})
+		triggerUploader(a, &S3{})
 	}
+
+	a.Create()
 
 	return nil
 }

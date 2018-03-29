@@ -7,13 +7,8 @@
     "aws",
     "aws/awserr",
     "aws/defaults",
-    "aws/ec2metadata",
-    "aws/ec2rolecreds",
-    "aws/endpointcreds",
     "aws/endpoints",
-    "aws/external",
     "aws/signer/v4",
-    "aws/stscreds",
     "internal/awsutil",
     "internal/sdk",
     "private/protocol",
@@ -25,17 +20,27 @@
     "private/protocol/xml/xmlutil",
     "service/s3",
     "service/s3/s3iface",
-    "service/s3/s3manager",
-    "service/sts"
+    "service/s3/s3manager"
   ]
   revision = "3383499f1024e86a3c68200f9bdc6759ee20eb70"
   version = "v2.0.0-preview.3"
 
 [[projects]]
-  name = "github.com/go-ini/ini"
+  branch = "master"
+  name = "github.com/gocql/gocql"
+  packages = [
+    ".",
+    "internal/lru",
+    "internal/murmur",
+    "internal/streams"
+  ]
+  revision = "12e3a8c05db483441932e84ab6c35c339fb01de7"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/golang/snappy"
   packages = ["."]
-  revision = "6333e38ac20b8949a8dd68baa3650f4dee8f39f0"
-  version = "v1.33.0"
+  revision = "553a641470496b2327abcac10b36396bd98e45c9"
 
 [[projects]]
   name = "github.com/gorilla/context"
@@ -50,13 +55,25 @@
   version = "v1.6.1"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/hailocab/go-hostpool"
+  packages = ["."]
+  revision = "e80d13ce29ede4452c43dea11e79b9bc8a15b478"
+
+[[projects]]
   name = "github.com/jmespath/go-jmespath"
   packages = ["."]
   revision = "0b12d6b5"
 
+[[projects]]
+  name = "gopkg.in/inf.v0"
+  packages = ["."]
+  revision = "d2d2541c53f18d2a059457998ce2876cc8e67cbf"
+  version = "v0.9.1"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "552b6d354faa8bb3d9366b396de58a0d1df0687771bc09d1520ea2079bd93e24"
+  inputs-digest = "df7cc9efef21495c604b7d1245c722c0fb41564849d85c86e0164ee30c8e6ca5"
   solver-name = "gps-cdcl"
   solver-version = 1

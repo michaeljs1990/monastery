@@ -1,10 +1,7 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
-
-	"github.com/gorilla/mux"
 
 	"github.com/michaeljs1990/monastery/src/storage"
 )
@@ -25,12 +22,10 @@ func DefaultUpload(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
 
-	// the header contains useful info, like the original file name
 	w.WriteHeader(http.StatusOK)
 }
 
+// DefaultDownload handles a simple fetch of files backend data sources.
 func DefaultDownload(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Bucket: %v\n", vars["bucket"])
 }
