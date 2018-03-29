@@ -37,8 +37,6 @@ func (s *S3) WriteFile(f AbstractFile) (err error) {
 
 	reader := io.Reader(f.Handler)
 
-	// cfg, err := external.LoadDefaultAWSConfig()
-
 	upload := s3manager.NewUploader(s.config)
 	_, err = upload.Upload(&s3manager.UploadInput{
 		Bucket: aws.String(config.S3Bucket),

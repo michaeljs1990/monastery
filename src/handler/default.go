@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+
 	"github.com/michaeljs1990/monastery/src/storage"
 )
 
@@ -13,28 +14,19 @@ import (
 // upload methods will be available later in the case where the user knows more about
 // the data he is going to be uploading in advanced.
 func DefaultUpload(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-
-	file, header, err := r.FormFile("file")
-	defer file.Close()
-
+	file, err := storage.NewAbstractFileFromRequest(r)
+	defer file.Handler.Close()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		return
 	}
 
-	s3uploader := &storage.S3{}
-	s3uploader.LoadConfig()
-	abf := storage.AbstractFile{
-		Name:    vars["name"],
-		Handler: file,
+	err = storage.Upload(file)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
 	}
-	s3uploader.WriteFile(abf)
 
 	// the header contains useful info, like the original file name
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "File %s uploaded successfully.", header.Filename)
-	fmt.Fprintf(w, "Bucket: %v\n", vars["bucket"])
 }
 
 func DefaultDownload(w http.ResponseWriter, r *http.Request) {
