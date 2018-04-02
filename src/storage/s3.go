@@ -1,10 +1,8 @@
 package storage
 
 import (
-	"fmt"
 	"io"
 	"net/http"
-	"strconv"
 
 	"github.com/aws/aws-sdk-go-v2/aws/defaults"
 
@@ -57,8 +55,8 @@ type Tests struct {
 
 // TODO: I am a bad person and this does bad things.
 func (w Tests) WriteAt(b []byte, off int64) (n int, err error) {
-	fmt.Println("bytes: " + strconv.Itoa(len(b)))
-	fmt.Println("offset: " + strconv.FormatInt(off, 10))
+	// fmt.Println("bytes: " + strconv.Itoa(len(b)))
+	// fmt.Println("offset: " + strconv.FormatInt(off, 10))
 	return w.Write(b)
 }
 
