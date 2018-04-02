@@ -1,6 +1,8 @@
 package storage
 
-import "github.com/michaeljs1990/monastery/src/config"
+import (
+	"github.com/michaeljs1990/monastery/src/config"
+)
 
 // Upload handles what backend is picked for uploading a file
 func Upload(a AbstractFile) error {
@@ -9,7 +11,13 @@ func Upload(a AbstractFile) error {
 		triggerUploader(a, &S3{})
 	}
 
-	a.Create()
+	// Create or Update depending on if the file exits already or not
+	_, err := a.Fetch()
+	if err != nil {
+		a.Create()
+	}
+
+	a.Update()
 
 	return nil
 }

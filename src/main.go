@@ -18,7 +18,7 @@ func main() {
 	relic := mux.NewRouter()
 
 	relic.HandleFunc("/upload/{bucket}/{name}", handler.DefaultUpload)
-	relic.HandleFunc("/download/{name}", handler.DefaultDownload)
+	relic.HandleFunc("/download/{bucket}/{name}", handler.DefaultDownload)
 
 	http.ListenAndServe(":"+config.ServicePort, relic)
 }

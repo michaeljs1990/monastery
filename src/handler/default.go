@@ -27,5 +27,15 @@ func DefaultUpload(w http.ResponseWriter, r *http.Request) {
 
 // DefaultDownload handles a simple fetch of files backend data sources.
 func DefaultDownload(w http.ResponseWriter, r *http.Request) {
+	file, err := storage.NewAbstractFileFromDatabase(r)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+	}
+
+	err = storage.Download(file, w)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+	}
+
 	w.WriteHeader(http.StatusOK)
 }
