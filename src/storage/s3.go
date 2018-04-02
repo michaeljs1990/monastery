@@ -1,8 +1,10 @@
 package storage
 
 import (
+	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 
 	"github.com/aws/aws-sdk-go-v2/aws/defaults"
 
@@ -55,12 +57,18 @@ type Tests struct {
 
 // TODO: I am a bad person and this does bad things.
 func (w Tests) WriteAt(b []byte, off int64) (n int, err error) {
+	fmt.Println("bytes: " + strconv.Itoa(len(b)))
+	fmt.Println("offset: " + strconv.FormatInt(off, 10))
 	return w.Write(b)
 }
 
 // ReadFile from S3 and write to the client
 func (s *S3) ReadFile(f AbstractFile, w http.ResponseWriter) error {
+	// Since the client isn't able to write files with offset
+	// we have to download all the bytes in order without any concurrency
+	// which in testing did little to speed up the download anyway.
 	downloader := s3manager.NewDownloader(s.config)
+	downloader.Concurrency = 1
 
 	t := Tests{w}
 	_, err := downloader.Download(t, &s3.GetObjectInput{

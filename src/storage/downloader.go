@@ -13,12 +13,6 @@ func Download(a AbstractFile, w http.ResponseWriter) error {
 		triggerDownloader(a, &S3{}, w)
 	}
 
-	// Create or Update depending on if the file exits already or not
-	_, err := a.Fetch()
-	if err != nil {
-		a.Create()
-	}
-
 	a.Update()
 
 	return nil

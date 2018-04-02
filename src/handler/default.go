@@ -15,11 +15,13 @@ func DefaultUpload(w http.ResponseWriter, r *http.Request) {
 	defer file.Handler.Close()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	err = storage.Upload(file)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	w.WriteHeader(http.StatusOK)
@@ -30,11 +32,13 @@ func DefaultDownload(w http.ResponseWriter, r *http.Request) {
 	file, err := storage.NewAbstractFileFromDatabase(r)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	err = storage.Download(file, w)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	w.WriteHeader(http.StatusOK)
